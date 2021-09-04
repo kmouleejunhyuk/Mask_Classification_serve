@@ -43,17 +43,8 @@ class modelserve():
 
         else:   #if filedir is valid
             try: 
-                if '.pt' in self.modeldir:  #if already jit
-                    print('fetching jit model', flush = True)
-                    model = torch.jit.load(self.modeldir)
-                    print('model load complete')  
-                    return model
-
-                else:   #if not jit
-                    print('not a jit model. compiling...', flush=True)
-                    model = self.quantize_model(torch.load(self.modeldir))
-                    print('model load complete')
-                    return model
+                model = self.quantize_model(torch.load(self.modeldir))
+                return model
 
             except:
                 raise Exception('model load failed')
@@ -74,20 +65,20 @@ class modelserve():
             
 
 #testcode
-# from PIL import Image
-# import time
+from PIL import Image
+import time
 
-# serve = modelserve()
-# frame = Image.open(r"P:\Downloads\face.png")
-# normalmodel = torch.load(r'.\model_mnist1.pickle').to('cpu')
+serve = modelserve()
+frame = Image.open(r"P:\Downloads\face.png")
+normalmodel = torch.load(r'.\model_mnist1.pickle').to('cpu')
 
-# st = time.time()
-# p = torch.argmax(normalmodel(transforms.ToTensor()(frame).unsqueeze(0)))
-# normaltime = time.time() - st
+st = time.time()
+p = torch.argmax(normalmodel(transforms.ToTensor()(frame).unsqueeze(0)))
+normaltime = time.time() - st
 
-# st = time.time()
-# label = serve.predict(frame)
-# qtime = time.time()-st
+st = time.time()
+label = serve.predict(frame)
+qtime = time.time()-st
 
-# print(p, label, normaltime, qtime)
+print(p, label, normaltime, qtime)
         
