@@ -8,13 +8,13 @@ import torch
 import os
 
 class modelserve():
-    def __init__(self, quantize: bool = True, model_dir: str = r'.\model_mnist1.pickle', imagesize: Tuple=(1, 3, 584, 312)):
+    def __init__(self, quantize: bool = True, model_dir: str = r'./model_mnist1.pickle', imagesize: Tuple=(1, 3, 584, 312)):
         self.modeldir = model_dir
         self.quantize = quantize
         self.mean = (0.5601, 0.5241, 0.5014)
         self.std = (0.2331, 0.2430, 0.2456)
         self.imagesize = imagesize
-
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = self.load_model()
         self.transform = transforms.Compose([transforms.ToTensor(),
                                             transforms.Normalize(self.mean, self.std)])
@@ -42,8 +42,12 @@ class modelserve():
             raise Exception('Wrong file name. please check')
 
         else:   #if filedir is valid
-            try: 
-                model = self.quantize_model(torch.load(self.modeldir))
+            try:
+                # cuda 를 사용할 수 없는 device 의 경우 cpu 로 모델을 불러옴
+                if self.device == 'cuda':
+                    model = self.quantize_model(torch.load(self.modeldir))
+                else:
+                    model = self.quantize_model(torch.load(self.modeldir, map_location=torch.device(self.device)))
                 return model
 
             except:
@@ -51,7 +55,7 @@ class modelserve():
 
 
     def quantize_model(self, model):
-        model.to('cpu')
+        model.to(self.device)
         for p in model.parameters():
             p.requires_grad_(False)
         model.eval()
@@ -69,8 +73,9 @@ from PIL import Image
 import time
 
 serve = modelserve()
-frame = Image.open(r"P:\Downloads\face.png")
-normalmodel = torch.load(r'.\model_mnist1.pickle').to('cpu')
+frame = Image.open(f'test.jpeg')
+# frame = Image.open(r"P:\Downloads\face.png")
+normalmodel = torch.load('model_mnist1.pickle', map_location=torch.device(serve.device))
 
 st = time.time()
 p = torch.argmax(normalmodel(transforms.ToTensor()(frame).unsqueeze(0)))
