@@ -8,13 +8,13 @@ import torch
 import os
 
 class modelserve():
-    def __init__(self, quantize: bool = True, model_dir: str = r'./model_mnist1.pickle', imagesize: Tuple=(1, 3, 584, 312)):
+    def __init__(self, quantize: str = 'normal', model_dir: str = r'./model_mnist1.pickle', imagesize: Tuple=(1, 3, 584, 312)):
         self.modeldir = model_dir
         self.quantize = quantize
         self.mean = (0.5601, 0.5241, 0.5014)
         self.std = (0.2331, 0.2430, 0.2456)
         self.imagesize = imagesize
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = "cpu"
         self.model = self.load_model()
         self.transform = transforms.Compose([transforms.ToTensor(),
                                             transforms.Normalize(self.mean, self.std)])
@@ -27,9 +27,10 @@ class modelserve():
 
 
     def predict(self, image):
-        tensor_image = self.trans_image(image)
-        onehot_label = self.model(tensor_image)
-        return torch.argmax(onehot_label)
+        with torch.no_grad():
+            tensor_image = self.trans_image(image)
+            onehot_label = self.model(tensor_image)
+            return torch.argmax(onehot_label)
 
 
     def load_model(self):
@@ -43,11 +44,8 @@ class modelserve():
 
         else:   #if filedir is valid
             try:
-                # cuda 를 사용할 수 없는 device 의 경우 cpu 로 모델을 불러옴
-                if self.device == 'cuda':
-                    model = self.quantize_model(torch.load(self.modeldir))
-                else:
-                    model = self.quantize_model(torch.load(self.modeldir, map_location=torch.device(self.device)))
+                model = torch.load(self.modeldir, map_location=self.device)
+                model = self.quantize_model(model)
                 return model
 
             except:
@@ -55,18 +53,27 @@ class modelserve():
 
 
     def quantize_model(self, model):
-        model.to(self.device)
-        for p in model.parameters():
-            p.requires_grad_(False)
+        '''
+        optional. use to save quantize model
+        '''
+        for layer in model.parameters():
+            layer.requires_grad_(False)
         model.eval()
 
-        if self.quantize:
+        if self.quantize == 'qint8':
             #quantizing model is in beta. may not work properly
             return torch.quantization.quantize_dynamic(model, dtype=torch.qint8)
+
+        elif self.quantize == 'bfloat16':
+            for layer in model.parameters():
+                if not isinstance(layer, torch.nn.BatchNorm2d):
+                    layer.bfloat16()
+            return model
+
         else:
             return model
 
-            
+
 
 #testcode
 from PIL import Image
