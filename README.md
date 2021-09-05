@@ -14,3 +14,35 @@
 | [![Avatar](https://avatars.githubusercontent.com/u/54921730?v=4)](https://github.com/herjh0405) | [![Avatar](https://avatars.githubusercontent.com/u/49228132?v=4)](https://github.com/mickeyshoes) | [![Avatar](https://avatars.githubusercontent.com/u/49234207?v=4)](https://github.com/kmouleejunhyuk) | [![Avatar](https://avatars.githubusercontent.com/u/69762559?v=4)](https://github.com/Jy0923) |
 |                  `얼굴 인식 및 분류 모델링`                  |                     `모델 서빙` `백엔드`                     |                   `모델 경량화` `아이디어`                   |                            `멘토`                            |
 
+### File Structure
+```text
+Mask_Status_Classification
+├── README.md
+├── __pycache__
+│   └── cam.cpython-37.pyc
+├── backend
+│   ├── backend
+│   ├── db.sqlite3
+│   ├── manage.py
+│   ├── predict
+│   └── webcam_test
+├── cam.py
+├── feedback.py
+├── main.py
+├── model_mnist1.pickle
+├── modelserve.py
+├── requirements.txt
+├── test.jpeg
+├── test.py
+```
+
+### Install Requirements
+```
+$ pip install -r requirements.txt
+```
+
+### run server
+
+```
+$ python manage.py runserver
+```
