@@ -1,7 +1,14 @@
+asgiref==3.4.1
+Django==3.2.7
+djangorestframework==3.12.4
 numpy==1.19.2
-opencv-python==4.5.3.56
-cvlib==0.2.6
+piPillow==8.3.2
+pytz==2021.1
+sqlparse==0.4.1
 torch==1.9.0
+torchvision==0.10.0
+typing-extensions==3.10.0.2
+cvlib==0.2.6
+opencv-python==4.5.3.56
 albumentations==1.0.3
 tensorflow==2.6.0
-torchvision==0.10.0

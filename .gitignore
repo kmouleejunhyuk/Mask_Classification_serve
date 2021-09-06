@@ -1,2 +1,8 @@
 ##Ignore file##
+.DS_Store
+*.pickle
 test.py
+*.pyc
+#cache
+__pycahce__/
+*/__pycahce__/

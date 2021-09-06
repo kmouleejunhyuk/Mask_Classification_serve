@@ -21,3 +21,35 @@
 | 2021.09.04 |    모두     | 팀 결성, 역할 분담, Organization 생성, Github과 Asana를 기반으로 협업 |
 |            |             |                                                              |
 
+### File Structure
+```text
+Mask_Status_Classification
+├── README.md
+├── __pycache__
+│   └── cam.cpython-37.pyc
+├── backend
+│   ├── backend
+│   ├── db.sqlite3
+│   ├── manage.py
+│   ├── predict
+│   └── webcam_test
+├── cam.py
+├── feedback.py
+├── main.py
+├── model_mnist1.pickle
+├── modelserve.py
+├── requirements.txt
+├── test.jpeg
+├── test.py
+```
+
+### Install Requirements
+```
+$ pip install -r requirements.txt
+```
+
+### run server
+
+```
+$ python manage.py runserver
+```
