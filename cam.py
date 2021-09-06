@@ -8,7 +8,7 @@ import albumentations.pytorch
 
 model = torch.load('model.pickle', map_location=torch.device('cpu'))
 model.eval()
-# device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # 내장 카메라를 받아옴 - 번호(0)
 capture = cv2.VideoCapture(0)
@@ -20,7 +20,6 @@ capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 transform = albumentations.Compose(
 	[
 	albumentations.Resize(512, 384, cv2.INTER_LINEAR),
-	albumentations.GaussianBlur(3, sigma_limit=(0.1, 2)),
 	albumentations.Normalize(mean=(0.5), std=(0.2)),
 	albumentations.pytorch.transforms.ToTensorV2(),
 	]
@@ -54,11 +53,10 @@ while cv2.waitKey(100)!=ord('q'):
 		image_array = frame[ymin:ymax, xmin:xmax]
 		augmented = transform(image=image_array)
 		image = augmented["image"]
-		print(image.unsqueeze(dim=0).shape)
+		image = image.unsqueeze(dim=0).to(device)
 		with torch.no_grad():
-			pred = model(image.unsqueeze(dim=0))
+			pred = model(image)
 			pred = F.softmax(pred, dim=1).cpu().numpy()
-			print(pred)
 			pred = pred.argmax()
 			cv2.putText(frame, str(pred.item()), (xmax, ymax), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2, cv2.LINE_AA)
 		
