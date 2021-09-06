@@ -1,87 +1,69 @@
-#py for retriving camera frames & motions(정훈)
-#input: 프로그램 시작 여부(불분명, 자유)
-#output: face frame(img형태, 크기 고정 & 명시 부탁)
-#optional: 디버깅 위한 화면 표현(face detected, label같은 문자)
 import cv2
-import numpy as np
- 
+import cvlib as cv
+import torch
+import torch.nn.functional as F
+import albumentations
+import albumentations.pytorch
 
 
-class cam():
-    def __init__(self):
-        self.cap = cv2.VideoCapture(0)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 320)
-        self.thresh = 25
-        self.max_diff = 5
-        self.f1, self.f2, self.f3 = None, None, None
+model = torch.load('model.pickle', map_location=torch.device('cpu'))
+model.eval()
+# device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+# 내장 카메라를 받아옴 - 번호(0)
+capture = cv2.VideoCapture(0)
+# cap.set(propid, value) - propid:속성, value:값
+# 카메라의 너비를 640, 높이를 480으로 변경
+capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+transform = albumentations.Compose(
+	[
+	albumentations.Resize(512, 384, cv2.INTER_LINEAR),
+	albumentations.GaussianBlur(3, sigma_limit=(0.1, 2)),
+	albumentations.Normalize(mean=(0.5), std=(0.2)),
+	albumentations.pytorch.transforms.ToTensorV2(),
+	]
+)
 
 
-    def cam_main(self):
-        if self.cap.isOpened():
-            ret, self.f1 = self.getframe()
-            ret, self.f2 = self.getframe()
+# padding value before cropping
+X_PADDING = 20 
+Y_PADDING = 30 # gave more padding due to include mask on the chin & hair sty
 
-            while ret:
-                ret, self.f3 = self.getframe()
-                ret, diff, diff_cnt = self.getdiff()
-                draw = self.f3.copy()
+# cv2.waitKey(delay) - delay시간만큼 키 입력을 기다림
+while cv2.waitKey(100)!=ord('q'):
+	# check - 카메라의 상태, 정상 작동:True
+	# frame - 현재 시점의 프레임이 저장
+	check, frame = capture.read()
+	# cv2.imshow(winname, mat) 창의 이름과 이미지를 할당
+	H, W, C = frame.shape
+	result_detected = cv.detect_face(frame)
+	if type(result_detected[1][0])==list:
+		print(type(result_detected[1][0]))
+		prob = result_detected[1][0][0]
+	else:
+		prob = result_detected[1][0]
+	if prob > 0.8:
+		xmin = max(int(result_detected[0][0][0]) - X_PADDING, 0)
+		ymin = max(int(result_detected[0][0][1]) - Y_PADDING, 0)
+		xmax = min(int(result_detected[0][0][2]) + X_PADDING, 640)
+		ymax = min(int(result_detected[0][0][3]) + Y_PADDING, 480)
 
-                if diff_cnt > self.max_diff:
-                    #dl part
-                    draw = self.contour(diff, draw)
+		bbox = cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color=(255,0,0), thickness=2)
+		image_array = frame[ymin:ymax, xmin:xmax]
+		augmented = transform(image=image_array)
+		image = augmented["image"]
+		print(image.unsqueeze(dim=0).shape)
+		with torch.no_grad():
+			pred = model(image.unsqueeze(dim=0))
+			pred = F.softmax(pred, dim=1).cpu().numpy()
+			print(pred)
+			pred = pred.argmax()
+			cv2.putText(frame, str(pred.item()), (xmax, ymax), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2, cv2.LINE_AA)
+		
 
-                cv2.imshow('motion', draw)
+	cv2.imshow('video', frame)
 
-                self.f1, self.f2 = self.f2, self.f3
-
-                if cv2.waitKey(33) > 0:
-                    break
-
-        self.cap.release()
-        cv2.destroyAllWindows()
-
-        return None
-
-    def getdiff(self):
-        '''
-        get diff of frame1, frame2, frame3
-        for motion detecting
-        '''
-
-        grays = [cv2.cvtColor(x, cv2.COLOR_BGR2GRAY) for x in [self.f1, self.f2, self.f3]]
-        diffs = [cv2.absdiff(grays[i], grays[i + 1]) for i in range(len(grays) - 1)]
-        ret_diff = [cv2.threshold(diff, self.thresh, 255, cv2.THRESH_BINARY) for diff in diffs]
-        
-        ret = all([x[0] for x in ret_diff])
-        diff_threshs = [x[1] for x in ret_diff]
- 
-        diff = cv2.bitwise_and(diff_threshs[0], diff_threshs[1])
-
-        k = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
-        diff = cv2.morphologyEx(diff, cv2.MORPH_OPEN, k)
-
-        diff_cnt = cv2.countNonZero(diff)
-
-        return ret, diff, diff_cnt
-
-
-
-    def getframe(self):
-        '''
-        equivalant to cv2 capture read
-        '''
-        ret, frame = self.cap.read()
-        return ret, frame
-
-
-    def contour(self, diff, draw):
-        '''
-        give contour to frame
-        '''
-        nzero = np.nonzero(diff)
-        cv2.rectangle(draw, (min(nzero[1]), min(nzero[0])),
-                        (max(nzero[1]), max(nzero[0])), (0, 255, 0), 2)
-        cv2.putText(draw, "Motion detected!!", (10, 30),
-                    cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255))
-        return draw
+capture.release()
+cv2.destroyAllWindows()
