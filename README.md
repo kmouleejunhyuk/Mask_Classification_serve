@@ -19,6 +19,7 @@
 |    Date    | Contributor | Descrption                                                   |
 | :--------: | :---------: | :----------------------------------------------------------- |
 | 2021.09.04 |    모두     | 팀 결성, 역할 분담, Organization 생성, Github과 Asana를 기반으로 협업 |
+| 2021.09.06 |   허정훈    | cam.py - 로컬 캠에서 얼굴 인식 및 label 반환<br />requirements.txt update |
 |            |             |                                                              |
 
 ### File Structure
