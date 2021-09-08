@@ -13,8 +13,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 capture = cv2.VideoCapture(0)
 # cap.set(propid, value) - propid:속성, value:값
 # 카메라의 너비를 640, 높이를 480으로 변경
-capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+capture.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
+capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 640)
 
 transform = albumentations.Compose(
     [
