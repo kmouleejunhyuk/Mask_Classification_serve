@@ -67,6 +67,7 @@ while cv2.waitKey(100) != ord("q"):
         except :
             pass
     cv2.imshow("video", frame)
+    cv2.imwrite('image.png', image_array)
 
 capture.release()
 cv2.destroyAllWindows()
