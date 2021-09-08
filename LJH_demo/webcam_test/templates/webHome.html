@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Test</h1>
+    <div class="buttons">
+        <button onclick="startWebcam()">캠 열기</button>
+        <button onclick="stopWebcam()">캠 닫기</button>
+    </div>
+    <video id="webcam-id" autoplay="true" />
+    
+    
+</body>
+
+<script>
+    const videoEl = document.getElementById("webcam-id")
+    //const ws = new WebSocket('');
+    const mediaStream = new MediaStream();
+    const recorderOptions = {
+        mimeType: 'video/webm',
+        videoBitsPerSecond: 200000 // 0.2 Mbit/sec.
+        };
+
+    const startWebcam = () =>{
+        if(navigator.mediaDevices.getUserMedia){
+            navigator.mediaDevices
+            .getUserMedia({video:true})
+            .then(stream => {
+                videoEl.srcObject = stream;
+
+                // var mediaRecorder = new MediaRecorder(stream)
+                // var track = stream.getVideoTracks()[0]
+                // mediaStream.addTrack(track)
+                // mediaRecorder.start(1000);
+                // mediaRecorder.ondataavailable = (event) => {
+                //     if (event.data && event.data.size > 0) {ws.send(event.data);}
+                //     }
+            })
+            .catch(err=>{
+                console.log("nocam", err)
+            });
+        }
+    }
+    const stopWebcam = () =>{
+        const stream = videoEl.srcObject;
+        const tracks = stream.getTracks();
+        for(let i = 0; i< tracks.length ; i++){
+            const track = tracks[i]
+            track.stop()
+        }
+        videoEl.srcObject = null;
+    }
+</script>
+</html>

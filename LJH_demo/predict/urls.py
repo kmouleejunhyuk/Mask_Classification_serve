@@ -1,9 +1,8 @@
 from django.urls import path
 from . import views
 
-
-app_name = 'home'
+app_name = 'predict'
 
 urlpatterns = [
-	path('video', views.video, name='video'),
+    path('', views.main),
 ]
