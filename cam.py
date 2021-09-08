@@ -37,39 +37,35 @@ while cv2.waitKey(100) != ord("q"):
     # cv2.imshow(winname, mat) 창의 이름과 이미지를 할당
     H, W, C = frame.shape
     result_detected = cv.detect_face(frame)
-    if type(result_detected[1][0]) == list:
-        print(type(result_detected[1][0]))
-        prob = result_detected[1][0][0]
-    else:
-        prob = result_detected[1][0]
-    if prob > 0.8:
-        xmin = max(int(result_detected[0][0][0]) - X_PADDING, 0)
-        ymin = max(int(result_detected[0][0][1]) - Y_PADDING, 0)
-        xmax = min(int(result_detected[0][0][2]) + X_PADDING, 640)
-        ymax = min(int(result_detected[0][0][3]) + Y_PADDING, 480)
+    if len(result_detected)!=0:
+        try :
+            if type(result_detected[1][0]) == list:
+                print(type(result_detected[1][0]))
+                prob = result_detected[1][0][0]
+            else:
+                prob = result_detected[1][0]
+            if prob > 0.8:
+                xmin = max(int(result_detected[0][0][0]) - X_PADDING, 0)
+                ymin = max(int(result_detected[0][0][1]) - Y_PADDING, 0)
+                xmax = min(int(result_detected[0][0][2]) + X_PADDING, 640)
+                ymax = min(int(result_detected[0][0][3]) + Y_PADDING, 480)
 
-        bbox = cv2.rectangle(
-            frame, (xmin, ymin), (xmax, ymax), color=(255, 0, 0), thickness=2
-        )
-        image_array = frame[ymin:ymax, xmin:xmax]
-        augmented = transform(image=image_array)
-        image = augmented["image"]
-        image = image.unsqueeze(dim=0).to(device)
-        with torch.no_grad():
-            pred = model(image)
-            pred = F.softmax(pred, dim=1).cpu().numpy()
-            pred = pred.argmax()
-            cv2.putText(
-                frame,
-                str(pred.item()),
-                (xmax, ymax),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                1,
-                (255, 0, 0),
-                2,
-                cv2.LINE_AA,
-            )
-
+                bbox = cv2.rectangle(
+                    frame, (xmin, ymin), (xmax, ymax), color=(255, 0, 0), thickness=2
+                )
+                image_array = frame[ymin:ymax, xmin:xmax]
+                augmented = transform(image=image_array)
+                image = augmented["image"]
+                image = image.unsqueeze(dim=0).to(device)
+                with torch.no_grad():
+                    pred = model(image)
+                    pred = F.softmax(pred, dim=1).cpu().numpy()
+                    pred = pred.argmax()
+                    cv2.putText(frame,str(pred.item()),(xmax, ymax),
+                        cv2.FONT_HERSHEY_SIMPLEX,1,(255, 0, 0),2,cv2.LINE_AA,
+                    )
+        except :
+            pass
     cv2.imshow("video", frame)
 
 capture.release()
