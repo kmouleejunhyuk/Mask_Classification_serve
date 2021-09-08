@@ -19,6 +19,7 @@ capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 640)
 transform = albumentations.Compose(
     [
         albumentations.Resize(512, 384, cv2.INTER_LINEAR),
+        albumentations.GaussianBlur(3, sigma_limit=(0.1, 2)),
         albumentations.Normalize(mean=(0.5), std=(0.2)),
         albumentations.pytorch.transforms.ToTensorV2(),
     ]
@@ -26,8 +27,7 @@ transform = albumentations.Compose(
 
 
 # padding value before cropping
-X_PADDING = 20
-Y_PADDING = 30  # gave more padding due to include mask on the chin & hair sty
+PADDING = 100 # gave more padding due to include mask on the chin & hair sty
 
 # cv2.waitKey(delay) - delay시간만큼 키 입력을 기다림
 while cv2.waitKey(100) != ord("q"):
@@ -45,10 +45,10 @@ while cv2.waitKey(100) != ord("q"):
             else:
                 prob = result_detected[1][0]
             if prob > 0.8:
-                xmin = max(int(result_detected[0][0][0]) - X_PADDING, 0)
-                ymin = max(int(result_detected[0][0][1]) - Y_PADDING, 0)
-                xmax = min(int(result_detected[0][0][2]) + X_PADDING, 640)
-                ymax = min(int(result_detected[0][0][3]) + Y_PADDING, 480)
+                xmin = max(int(result_detected[0][0][0]) - PADDING, 0)
+                ymin = max(int(result_detected[0][0][1]) - PADDING, 0)
+                xmax = min(int(result_detected[0][0][2]) + PADDING, 480)
+                ymax = min(int(result_detected[0][0][3]) + PADDING, 640)
 
                 bbox = cv2.rectangle(
                     frame, (xmin, ymin), (xmax, ymax), color=(255, 0, 0), thickness=2
