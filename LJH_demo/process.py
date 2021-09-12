@@ -11,6 +11,7 @@ import imutils
 #import dlib
 from engineio.payload import Payload
 
+
 #detector = dlib.get_frontal_face_detector()
 #predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 Payload.max_decode_packets = 2048
@@ -49,14 +50,23 @@ def catch_frame(data):
 
 
 from modelserve import modelserve
+from cam import facecrop
 serve = modelserve()
+cropper = facecrop()
 
 @socketio.on('image')
 def image(data_image):
 
     #get image from user webcam
     frame = (readb64(data_image))   #userframe
-    text  =  'Label: '+str(serve.predict(image = frame).item())
+    #crop face from frame
+    face = cropper.cropface(frame)
+    #label image
+    #not implementing label stable
+    if isinstance(face, str):
+        text = face
+    else:
+        text  =  'Label: '+str(serve.predict(image = face).item())
 
     #write image to label
     frame = ps.putBText(frame,text,text_offset_x=20,text_offset_y=30,vspace=20,hspace=10, font_scale=1.0,background_RGB=(10,20,222),text_RGB=(255,255,255))
