@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'predict.apps.PredictConfig',
     'webcam_test.apps.WebcamTestConfig',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
