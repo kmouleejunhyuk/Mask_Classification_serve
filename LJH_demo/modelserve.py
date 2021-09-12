@@ -18,22 +18,18 @@ class modelserve():
         self.imagesize = imagesize
         self.device = "cpu"
         self.model = self.load_model()
-        self.transform = transforms.Compose([transforms.ToTensor(),
-                                            #transforms.Resize(100),
-                                            #transforms.RandomHorizontalFlip(1)])
-                                            transforms.Normalize(self.mean, self.std)])
         
 
 
     def trans_image(self, image):
-        img = self.transform(image).unsqueeze(0)
+        img = image.unsqueeze(0)
         return img
 
 
     def predict(self, image):
         with torch.no_grad():
-            tensor_image = self.trans_image(image)
-            onehot_label = self.model(tensor_image)
+            #tensor_image = self.trans_image(image)
+            onehot_label = self.model(image.unsqueeze(0))
             return torch.argmax(onehot_label)
 
 
