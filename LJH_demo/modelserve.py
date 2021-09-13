@@ -1,15 +1,15 @@
 #py for model lightweighting & inferencing
-#input: img(facecropped)
-#output: label, alert/pass 여부
+#do not use this script in serving level
 import io
 from typing import Tuple
-import torchvision.transforms as transforms
-import torch
 import os
 import numpy as np
 from torchvision.transforms.transforms import CenterCrop, RandomHorizontalFlip
+import torchvision.transforms as transforms
+import torch
 
 class modelserve():
+    
     def __init__(self, quantize: str = 'bfloat16', model_dir: str = r'./model.pickle', imagesize: Tuple=(1, 3, 584, 312)):
         self.modeldir = model_dir
         self.quantize = quantize
@@ -18,23 +18,6 @@ class modelserve():
         self.imagesize = imagesize
         self.device = "cpu"
         self.model = self.load_model()
-        self.transform = transforms.Compose([transforms.ToTensor(),
-                                            #transforms.Resize(100),
-                                            #transforms.RandomHorizontalFlip(1)])
-                                            transforms.Normalize(self.mean, self.std)])
-        
-
-
-    def trans_image(self, image):
-        img = self.transform(image).unsqueeze(0)
-        return img
-
-
-    def predict(self, image):
-        with torch.no_grad():
-            tensor_image = self.trans_image(image)
-            onehot_label = self.model(tensor_image)
-            return torch.argmax(onehot_label)
 
 
     def load_model(self):
@@ -49,36 +32,24 @@ class modelserve():
         else:   #if filedir is valid
             try:
                 model = torch.load(self.modeldir, map_location=self.device)
-                model = self.quantize_model(model)
-                return model
+                self.to_jit(model)
+                return None
 
             except:
-                raise Exception('model load failed')
+                raise Exception('model save failed')
 
 
-    def quantize_model(self, model):
+    def to_jit(self, model):
         '''
-        optional. use to save quantize model
+        if not loading jit, save as jit and reload model as jit
         '''
-        for layer in model.parameters():
-            layer.requires_grad_(False)
         model.eval()
-
-        if self.quantize == 'qint8':
-            #quantizing model is in beta. may not work properly
-            return torch.quantization.quantize_dynamic(model, dtype=torch.qint8)
-
-        elif self.quantize == 'bfloat16':
-            for layer in model.parameters():
-                if not isinstance(layer, torch.nn.BatchNorm2d):
-                    layer.bfloat16()
-            return model
-
-        else:
-            return model
+        dummy_input = torch.randn(1, 3, 584, 312)
+        torch.onnx.export(model, dummy_input, "Model.onnx", verbose=True)
+        return None
 
 
-
+modelserve()
 #testcode
 # from PIL import Image
 # import time

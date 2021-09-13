@@ -8,16 +8,13 @@ import numpy as np
 import pyshine as ps
 from flask_cors import CORS,cross_origin
 import imutils
-#import dlib
 from engineio.payload import Payload
 
-#detector = dlib.get_frontal_face_detector()
-#predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 Payload.max_decode_packets = 2048
 
 app = Flask(__name__)
 socketio = SocketIO(app,cors_allowed_origins='*' )
-
+net=cv2.dnn.readNet("Model.onnx")
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -34,8 +31,7 @@ def readb64(base64_string):
 
     sbuf.write(base64.b64decode(base64_string, ' /'))
     pimg = Image.open(sbuf)
-
-
+    
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 def moving_average(x):
@@ -47,17 +43,16 @@ def catch_frame(data):
 
     emit('response_back', data)  
 
-
-from modelserve import modelserve
-serve = modelserve()
-
 @socketio.on('image')
 def image(data_image):
 
     #get image from user webcam
     frame = (readb64(data_image))   #userframe
-    text  =  'Label: '+str(serve.predict(image = frame).item())
-
+    blob = cv2.dnn.blobFromImage(cv2.UMat(frame), swapRB=False, crop=False)
+    net.setInput(blob)
+    label = np.array(net.forward())
+    text  =  'Label: '+str(np.argmax(label))
+    
     #write image to label
     frame = ps.putBText(frame,text,text_offset_x=20,text_offset_y=30,vspace=20,hspace=10, font_scale=1.0,background_RGB=(10,20,222),text_RGB=(255,255,255))
     imgencode = cv2.imencode('.jpeg', frame,[cv2.IMWRITE_JPEG_QUALITY,40])[1]
