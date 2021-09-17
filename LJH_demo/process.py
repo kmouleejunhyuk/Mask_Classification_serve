@@ -77,7 +77,7 @@ def image(data_image):
     b64_src = 'data:image/jpeg;base64,'
     stringData = b64_src + stringData
 
-    # emit the frame back
+    # emit the frame back 
     emit('response_back', stringData)
 
 
