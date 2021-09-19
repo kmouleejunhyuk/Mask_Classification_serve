@@ -10,7 +10,7 @@ class facecrop():
     #jung hun
     def __init__(self) -> None:
         self.transform = albumentations.Compose([
-            albumentations.Resize(512, 384, cv2.INTER_LINEAR),
+            albumentations.Resize(512//4, 384//4, cv2.INTER_LINEAR),
             albumentations.GaussianBlur(3, sigma_limit=(0.1, 2)),
             albumentations.Normalize(mean=(0.5), std=(0.2)),
             albumentations.pytorch.transforms.ToTensorV2(),
