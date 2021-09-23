@@ -13,15 +13,14 @@ class facecrop():
             albumentations.Resize(512//4, 384//4, cv2.INTER_LINEAR),
             albumentations.GaussianBlur(3, sigma_limit=(0.1, 2)),
             albumentations.Normalize(mean=(0.5), std=(0.2)),
-            albumentations.pytorch.transforms.ToTensorV2(),
+            albumentations.ToFloat(max_value=255)
             ])
 
         self.PADDING = 100
 
     def cropface(self, frame) -> None:
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        H, W, C = frame.shape
-        result_detected = cv.detect_face(frame)
+        bgrframe = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        result_detected = cv.detect_face(bgrframe)
         if len(result_detected)!=0:
             try:
                 if type(result_detected[1][0]) == list:
@@ -36,9 +35,6 @@ class facecrop():
                     xmax = min(int(result_detected[0][0][2]) + self.PADDING, 480)
                     ymax = min(int(result_detected[0][0][3]) + self.PADDING, 640)
 
-                    bbox = cv2.rectangle(
-                        frame, (xmin, ymin), (xmax, ymax), color=(255, 0, 0), thickness=2
-                    )
                     image_array = frame[ymin:ymax, xmin:xmax]
                     augmented = self.transform(image=image_array)
                     image = augmented["image"]
