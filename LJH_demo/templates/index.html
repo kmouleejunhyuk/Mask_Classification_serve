@@ -10,7 +10,42 @@
     		-webkit-transform:rotateY(180deg); /* Safari and Chrome */
     		-moz-transform:rotateY(180deg); /* Firefox */
     		
-    	}
+        }
+
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        td{
+            color: white;
+            text-align: center;
+            width: 300px;
+            height: 300px;
+        }
+        th{
+            color: white;
+            text-align: center;
+        }
+        h2, h3, h4, p{
+            color: white;
+            text-align: center;
+        }
+
+        /* .rounded-circle {
+            border-radius: 50% !important;
+        } */
+
+        .img-fluid {
+            /* max-width: 100%; */
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 20%;
+            height: 20%;
+        }
+
+
     </style>
     
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,15 +54,80 @@
 
 <body bgcolor="black">
 
-    <div id="container">
-    <video autoplay playsinline id="videoElement", style="visibility: hidden;"></video>
-    <canvas id="canvas"  width="400" height="300"></canvas>
-    </div>
 
     <div class = 'video'>
-        <h1 style="color:white;font-size:40px;" align="center">video</h1>
+        <h1 style="color:white;font-size:40px;" align="center">Video</h1>
         <img id="photo"  width="800"  height="600", style="display:block; margin: 0 auto;">
     </div>
+
+    <h1 style="color:white;font-size:40px;" align="center">Contributer</h1>
+
+    <table>
+        <tr>
+            <th>
+                Junhuck Lee
+            </th>
+            <th>
+                Junghun Heo
+            </th>
+            <th>
+                Sungmin Lim
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://avatars.githubusercontent.com/u/49234207?v=4" width="200" height="200">
+            </td>
+            <td>
+                <img src="https://avatars.githubusercontent.com/u/54921730?v=4" width="200" height="200">
+            </td>
+            <td>
+                <img src="https://avatars.githubusercontent.com/u/49228132?v=4" width="200" height="200">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="container">
+                    <video autoplay playsinline id="videoElement", style="visibility: hidden;"></video>
+                </div>
+            </td>
+            <td>
+                <canvas id="canvas"  width="300" height="300" ></canvas>
+            </td>
+        </tr>
+    </table>
+
+    <section class="page-section" id="about">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">About</h2>
+                <h3 class="section-subheading text-muted">여기에</h3>
+            </div>
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="https://logos-world.net/wp-content/uploads/2021/02/Asana-Logo.png" alt="..." /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2009-2011안녕!</h4>
+                            <h4 class="subheading">Our Humble Beginnings안녕!</h4>
+                        </div>
+                        <div class="timeline-body"><p class="text-muted">안녕!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="https://toppng.com/uploads/preview/see-all-open-source-repositories-github-logo-11563031735gubsot66ry.png" alt="..." /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>안녕!March 2011</h4>
+                            <h4 class="subheading">안녕!An Agency is Born</h4>
+                        </div>
+                        <div class="timeline-body"><p class="text-muted">안녕!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
 
     <script type="text/javascript" charset="utf-8">
       
@@ -41,7 +141,7 @@
         var context = canvas.getContext('2d');
         const video = document.querySelector("#videoElement");
 
-        video.width = 400;
+        video.width = 300;
         video.height = 300; 
     
 
