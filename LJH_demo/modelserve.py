@@ -1,13 +1,9 @@
 #py for model lightweighting & inferencing
 #input: img(facecropped)
 #output: label, alert/pass 여부
-import io
 from typing import Tuple
-import torchvision.transforms as transforms
 import torch
 import os
-import numpy as np
-from torchvision.transforms.transforms import CenterCrop, RandomHorizontalFlip
 
 class modelserve():
     def __init__(self, quantize: str = 'bfloat16', model_dir: str = r'./model.pickle', imagesize: Tuple=(1, 3, 584, 312)):
