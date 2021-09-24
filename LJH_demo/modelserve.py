@@ -3,6 +3,7 @@
 #output: label, alert/pass 여부
 #ONNX 변환으로 인해 전체 비활성화
 #ONNX 변환이 필요할 떄만 일시적으로 활성화할 것
+#pip install torch
 
 # from typing import Tuple
 # import torch
@@ -18,32 +19,20 @@
 #         self.to_tf(self.torchmodel)
         
 
-
 #     def trans_image(self, image):
-#         img = image.unsqueeze(0)
-#         return img
+#         return image.unsqueeze(0)
 
 
 #     def to_tf(self, model):
 #         model.eval()
-#         # 모델에 대한 입력값
 #         x = torch.randn(1, 3, 512, 384, requires_grad=True)
 
-#         # 모델 변환
-#         torch.onnx.export(model,               # 실행될 모델
-#                   x,                         # 모델 입력값 (튜플 또는 여러 입력값들도 가능)
-#                   "model.onnx",   # 모델 저장 경로 (파일 또는 파일과 유사한 객체 모두 가능)
-#                   export_params=True,        # 모델 파일 안에 학습된 모델 가중치를 저장할지의 여부
-#                   do_constant_folding=True,  # 최적하시 상수폴딩을 사용할지의 여부
-#                   input_names = ['input'],   # 모델의 입력값을 가리키는 이름
-#                   output_names = ['output'] # 모델의 출력값을 가리키는 이름
-#                   )
+#         torch.onnx.export(model, x, "model.onnx", export_params=True, do_constant_folding=True,
+#                   input_names = ['input'], output_names = ['output'])
 
-#         # onnx_model = onnx.load("output/model.onnx")
-#         # tf_rep = prepare(onnx_model)
-#         # tf_rep.export_graph("output/model.pb")  
 #         print('complete')
 #         return None
+
 
 #     def predict(self, image):
 #         with torch.no_grad():
@@ -74,13 +63,12 @@
 #         '''
 #         optional. use to save quantize model
 #         '''
-#         # for layer in model.parameters():
-#         #     layer.requires_grad_(False)
-#         model.eval()
+#         for layer in model.parameters():
+#           layer.requires_grad_(False)
 
+#         model.eval()
 #         if self.quantize == 'qint8':
-#             #quantizing model is in beta. may not work properly
-#             return torch.quantization.quantize_dynamic(model, dtype=torch.qint8)
+#             return torch.quantization.quantize_dynamic(model, dtype=torch.qint8)  #quantizing model is in beta. may not work properly
 
 #         elif self.quantize == 'bfloat16':
 #             for layer in model.parameters():
