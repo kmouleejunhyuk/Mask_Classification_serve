@@ -33,9 +33,11 @@ scikit-image==0.18.3
 scipy==1.7.1
 six==1.16.0
 tifffile==2021.8.30
-torch==1.9.0
-torchvision==0.10.0
-typing-extensions==3.10.0.2
+# --find-links https://download.pytorch.org/whl/torch_stable.html
+# torch==1.7.1+cpu
+# torchaudio==0.7.2
+# torchvision==0.8.2+cpu
+typing-extensions==3.7.4
 urllib3==1.26.6
 Werkzeug==2.0.1
 zipp==3.5.0
