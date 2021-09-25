@@ -42,8 +42,8 @@
             margin-left: auto;
             margin-right: auto;
             display: block;
-            width: 20%;
-            height: 20%;
+            width: 300px;
+            height: 300px;
         }
 
         .center {
@@ -105,7 +105,7 @@
             </A>
             </td>
         </tr>
-        <!-- <tr>
+        <tr>
             <td>
                 <div id="container">
                     <video autoplay playsinline id="videoElement", style="visibility: hidden;"></video>
@@ -114,7 +114,7 @@
             <td>
                 <canvas id="canvas"  width="300" height="300" ></canvas>
             </td>
-        </tr> -->
+        </tr>
     </table>
 
     <section class="page-section" id="about">
@@ -134,18 +134,30 @@
                         </div>
                         <div class="timeline-body"><p class="text-muted">
                             <a href="https://github.com/boostcampaitech2/image-classification-level1-12/tree/master">
-                            부스트캠프 이미지 분류 대회의 모델</a>을 사용하여, 마스크 착용 상태 구분 웹서비스  
+                            부스트캠프 이미지 분류 대회의 모델</a>을 사용하여, 마스크 착용 상태 구분 웹서비스<br>  
                             마스크 착용 상태, 연령대, 성별을 구분
                             </p></div>
                     </div>
                 </li>
                 <li class="timeline-inverted">
+                    <A href="https://boostcamp.connect.or.kr/program_ai.html" target='blank'></A>
                     <div class="timeline-image"><img class="rounded-circle img-fluid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA0lBMVEX6+voAAAD///////oAT//+/foAQf8ASP8ATf8ASv+Gof0ODg4ARf8AS/+oqKj5+/pvj/7Z2dlhYWHx8fEAPf8AQ//F0vxQUFDKysrAwMDs7Oyurq5ubm4AOf/Gz/yYmJh4eHji4uLU1NSJiYkeHh44ODgWFhZ8fHyfn5+Hh4e3xvy3t7cwMDDExMSRkZEpKSlcXFzq7/vb4/uYrf2nuf1JSUlOd/40af/j6fsMVf8sZf9/mv7S3PuQpv1ykf6hs/2vwPwAL/9Wff5miP4mX/9Hcv5S6k8VAAAHBklEQVR4nO2Yi1baShSGkz25oVwMCRACFIggCILiBUSttVXf/5XOnpkkotXjqhxXe7r+b4HJXBLmz559iYYBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+Azody/gkyFK/m6JlAwb2ykk+qOfEFVNs7rVCmPf94P/ajmfAJlbKqQx38H/g61Iu9sqLLPC/mcqpP3WVgvUComee9PL9osOypr8VytMx2whhJ1Pky3BB8ZID9mEdMjI+p9fSfLO+sPsT7dxda0wKPfa+1F+Gwpao/aoFeS3pf6YJzSzCeR3270xG478KDpkha1oFnO/qEx29q7PF+nSxc3XvdtvC3Far9crhi0PYnG2d3teseVx75uaqPpt8YWvnFRSjQOiRkStrowSM5rPh2bjw64uFbanpmKYbjba121znraDatoxVR2UNttEbdN8GhJnjlN03VrnWq18seyo1vlOx/nOeu87YW3SqbmuYy3O9dAdTxTXPHz5ELo84E7Uw6GTJDB71PCrZSIz7poxtYYftaJUOMiXqSTSRd5WeYTivG3u05NA07yg3oZC8SP0LMvjb20lWGDJ5VbJs2prz3IqhtjjtusVSpZVWtesUsGzvO912xA7ruWtS1aJB7zOmZRIrfl0fEAmmd35/KI8Zz8k86NGlAqVFiVzVwrQdtGye7LjWJ0eZKbqy+Oh3JwXwaYNdxzW5qxrNcsK74VYFSwvXC/XodScK7Tur3icJa/uPVZ1JZRCy3PD1Srkk86N3KjBUTUezXtkRlGUxPMu+6H5QYGpQvYw8qWmMVc4er1ELVPlARVKDqSTqs1LNNXj8fGMqJ/4c3m9nwSLDiv7VhHiLuz8OBWTkM1Z5/BR31BYWHLHTpHb5xxXHkpWZ6EVOreGEME9m3aljHgxoMiMqNvwo2Oam63kZLTNLmWBRroZj0ltvJnqaPLZiJQJY9VxqLTNpMn7eTBNY6n4WrQc6VeGmNSFLX4UrPBUNU/DXGF4Ki3E2h+kA97VLIdjDCt075X/iWXB6lzyFJrxXhnxcVpt+9RMuuyQ29hwkAYUqS0gNuVR2nEsTwOlU3Wkp3oX7+tyNsuHvDrP00FUBn9R9EpL3RTLUqrQq1Vku+ApRfYXJ1OolRt23bFqd7Z6cPqFQD3HjUz1AZ0bGT9da+p9RuqR5MtskHbw6Um6j2XslZbNFT6UMkmSSsdyr1OFLCFV6Cqjljx377nCTkVftQit4tnTTTKCvjr0A3/66xKlwrTypq7ajuaT5BMZe/rKPXOFbX6mQZZOjA2Fq5KMGxmCFd6mCm9/VvjShgs10758VSHN1ILopNXsvanQfmtA+WF6OlSB5CLvMFS+IJUW1ARpvK6qNzjnS4XsHblC6WYL9TsVLk7Eg+etU4WW957Cms6D4pw98wvfI6B+QIHMXdSPiaI2+bL8oCmHBcN/tcC5eUuiUlhVO32sz8Z5x4nSoNLfWLaDgQ6u1JWhNtZOmSm0J45VeOQIKcRyeakiZnFHcEEmrovWewo9a8FTxcL1vFAuqj1smIeD4zYFu8PdE4oagwavpD1tjnh51VcL/ct/taE5nCYzlcdl9JDHo3JUPtb7UDmi2ZjOlNXYplO+pBUHXV0A5JW34Kztrs8n5w9ugasamTycH5ObyZLT5HsKOd1/u7k5K3pWUTovtcecLGQOPOFn2RsnHAC5thk1m6P4gJ+0+SvemGV8jYyZfO8npGKab3QExkYdI4eVQvlQ7ZsOVylFp1ji0uSLLc44SRQcxyl4hfcVunyhwwILa7WodkJ9fpZDqYWSaiKdf7952OTP7vBo+Ev1jfSyxlG64LZ2t2auINIducQDFT0bWXM/i6Wy7DZEXa5R1icd6VZip1OSreL63i2FUmGxUFQK3UJRKwxLYZoPb0N1ZW2tPJnaEflK4ZGsOA6TXfaKoS9t6MuQ8EsFHA2HRz0aqa3azJJOrNrmYfZyQb7awoMxpSlwoLe2inBlc56mKbG4LoRhWLzVLxei/tjh5p5xtnq8kopXj6pgEXyUe9GuXz1e3ehsIe7WPNf7ql6zuPJlhRdca8S+2R2ZRnQwLF9UqdfkWFptlBtvR9RXJeqc2udgtfn+F/vxs7bR3+iQw76Ryk3ip3lCXJ5e5u95tghOL22uPPWrYP5GmJ3oV0KlkPsW8sr0/klsBAnHUA6o5alazJhLRD+O2aTROPpYffPyqp/u8rzjSf7zfv2yu9F894e1wudzSX8p+yHa/L0/+x9fr5Ar/Gthhd73372IT4Vj7nry/mb+HyN2zsRfLVCG1N+9AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICt+Ac/lIkKkuebvwAAAABJRU5ErkJggg==" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4><a href="https://github.com/Boostcamp12-WebServing/Mask_Status_Classification">Source Code</a></h4>
                         </div>
-                        <!-- <div class="timeline-body"><p class="text-muted">안녕!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div> -->
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h2>Episode</h2>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">
+                                이미지 대회가 종료된 후 실제로 서비스화하고자 하는 세 명의 팀원이 모였습니다.👨‍👨‍👦‍👦<br>
+                                학습 데이터에선 못봤던 예상치 못한 에러들과 모델을 서버에서 돌리기 위한 경량화, <br>
+                                Flask를 통한 웹서비스화 등 대회를 진행할 때는 배울 수 없었던 것을 배운 소중한 경험이 되었습니다.✍🏻<br>
+                                협업 툴로는 Asana와 Github을 사용하였습니다.<br>
+                                사용해보시고 불편하신 점 있으면 언제든 issue 보내주시면 감사하겠습니다.🙇‍♂️
+                            </p></div>
+                        </div>
                     </div>
                 </li>
             </ul>
