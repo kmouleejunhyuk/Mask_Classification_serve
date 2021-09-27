@@ -18,20 +18,26 @@
             margin-bottom: 0px;
         }
         td{
-            color: white;
+            color: black;
             text-align: center;
             width: 300px;
             height: 300px;
         }
         th{
-            color: white;
+            color: black;
+            text-align: center;
+        }
+        h1{
+            color: black;
             text-align: center;
         }
         h2, h3, h4, p{
-            color: white;
+            color: black;
             text-align: center;
         }
-
+        ul{
+            list-style:none;
+        }
         /* .rounded-circle {
             border-radius: 50% !important;
         } */
@@ -60,51 +66,78 @@
      <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js'></script>
 </head>
 
-<body bgcolor="black">
-
-
+<body bgcolor="lightblue">
     <div class = 'video'>
-        <h1 style="color:white;font-size:40px;" align="center">Video</h1>
+        <h1 style="color:black;font-size:40px;" align="center"> What is your mask status? </h1>
         <img id="photo"  width="800"  height="600", style="display:block; margin: 0 auto;">
     </div>
+    
+    <div class="timeline-panel">
+        <div class="timeline-heading">
+            <h1 style="color:black;font-size:40px;"><br>Project summary</h1>
+        </div>
+        <div class="timeline-body"><p class="text-muted">
+            <a href="https://github.com/Boostcamp12-WebServing/Mask_Status_Classification" target = "_blank">Source code(github)</a>
+             / 
+            <a href="https://s3-ap-northeast-2.amazonaws.com/aistages-public-junyeop/app/Users/00000025/files/56bd7d05-4eb8-4e3e-884d-18bd74dc4864..png">label download(png)</a><br><br>
+            사용자의 웹캠 이미지를 기반으로 마스크 착용 상태, 연령대, 성별을 구분해 줍니다.<br>
+            <a href="https://github.com/boostcampaitech2/image-classification-level1-12/tree/master" target = "_blank">부스트캠프 이미지 분류 대회의 모델</a>을
+            사용하였습니다.
+        </p></div>
+    </div>
 
-    <h1 style="color:white;font-size:40px;" align="center">Contributer</h1>
+    <div class="timeline-panel">
+        <div class="timeline-heading">
+            <h1 style="color:black;font-size:40px;"><br>Episode</h1>
+        </div>
+        <div class="timeline-body"><p class="text-muted">
+            <a href="https://boostcamp.connect.or.kr" target = "_blank">Naver boostcamp AI tech</a>의 
+            <a href=https://stages.ai/competitions/74/overview/description target = "_blank">이미지 분류 대회</a>
+            가 종료된 후 실제로 서비스화하고자 하는 세 명의 팀원이 모였습니다.👨‍👨‍👦‍👦<br>
+            학습 프로세스에서는 예상치 못한 에러들과 모델을 서버에서 돌리기 위한 경량화, <br>
+            Flask를 통한 웹서비스화 등 대회를 진행할 때는 배울 수 없었던 것을 배운 소중한 경험이 되었습니다.✍🏻<br>
+            협업 툴로는 
+            <a href="https://app.asana.com/0/1200919734445173/board" target = "_blank">Asana</a>와 
+            Github를 사용하였습니다.<br>
+            불편사항 및 개선사항은 
+            <a href="https://github.com/Boostcamp12-WebServing/Mask_Status_Classification/issues" target = "_blank">issue</a>로 
+            등록해 주시면 감사하겠습니다.🙇‍♂️<br><br><br><br><br>
+        </p></div>
+    </div>
 
+    <h1 style="color:black;font-size:40px;" align="center">Contributer</h1>
     <table>
         <tr>
-            <th>
-                Junhyuk Lee
-            </th>
-            <th>
-                Junghun Heo
-            </th>
-            <th>
-                Sungmin Lim
-            </th>
+            <th>Junhyuk Lee</th>
+            <th>Junghun Heo</th>
+            <th>Sungmin Lim</th>
         </tr>
         <tr>
             <td>
-                <A href="https://github.com/kmouleejunhyuk" target='blank'>
-                <img src="https://avatars.githubusercontent.com/u/49234207?v=4" width="200" height="200">
-                <br>
-                <a>모델 경량화, 아이디어 기획</a> 
-            </A>
+                <img src="https://avatars.githubusercontent.com/u/49234207?v=4" width="200" height="200"><br>
+                <a>Model 경량화, idea, 프론트/백엔드 총괄</a> <br>
+                <a href="https://github.com/kmouleejunhyuk" target = "_blank">github</a>
+                <a> / </a>
+                <a href="mailto:ksi03376@naver.com">email</a>
             </td>
             <td>
-                <A href="https://github.com/herjh0405" target='blank'>
-                <img src="https://avatars.githubusercontent.com/u/54921730?v=4" width="200" height="200">
-                <br>
+                <img src="https://avatars.githubusercontent.com/u/54921730?v=4" width="200" height="200"><br>
                 <a>얼굴 인식 및 분류 모델링, 프론트엔드</a>    
-            </A>
+                <a href="https://github.com/herjh0405" target = "_blank">github</a>
+                <a> / </a>
+                <a href="mailto:herjh0405@naver.com">email</a>
             </td>
             <td>
-                <A href="https://github.com/mickeyshoes" target='blank'>
-                <img src="https://avatars.githubusercontent.com/u/49228132?v=4" width="200" height="200">
-                <br>
-                <a>모델 서빙, 백엔드</a>
-            </A>
+                <img src="https://avatars.githubusercontent.com/u/49228132?v=4" width="200" height="200"><br>
+                <a>모델 서빙, 백엔드</a><br>
+                <a href="https://github.com/mickeyshoes" target = "_blank">github</a>
+                <a> / </a>
+                <a href="mailto:parody9c@gmail.com">email</a>
             </td>
         </tr>
+    </table>
+
+    <table>
         <tr>
             <td>
                 <div id="container">
@@ -116,62 +149,13 @@
             </td>
         </tr>
     </table>
-
-    <section class="page-section" id="about">
-        <div class="container">
-            <div class="text-center">
-                <h1 style="color:white;font-size:40px;" align="center">Intro</h1>
-                <h2 class="section-heading text-uppercase">마스크 착용 상태 분류기</h2>
-                <!-- <h3 class="section-subheading text-muted">마스크 착용 상태 분류기</h3> -->
-            </div>
-            <ul class="timeline">
-                <li>
-                    <div class="timeline-image"><img class="center" src="https://s3-ap-northeast-2.amazonaws.com/aistages-public-junyeop/app/Users/00000025/files/56bd7d05-4eb8-4e3e-884d-18bd74dc4864..png" alt="..."  width="30%" height="50%"/></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2021.09.04 ~ 2021.09.26</h4>
-                            <!-- <h4 class="subheading">Our Humble Beginnings안녕!</h4> -->
-                        </div>
-                        <div class="timeline-body"><p class="text-muted">
-                            <a href="https://github.com/boostcampaitech2/image-classification-level1-12/tree/master">
-                            부스트캠프 이미지 분류 대회의 모델</a>을 사용하여, 마스크 착용 상태 구분 웹서비스<br>  
-                            마스크 착용 상태, 연령대, 성별을 구분
-                            </p></div>
-                    </div>
-                </li>
-                <li class="timeline-inverted">
-                    <A href="https://boostcamp.connect.or.kr/program_ai.html" target='blank'></A>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="data:image/png;base64,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" alt="..." /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4><a href="https://github.com/Boostcamp12-WebServing/Mask_Status_Classification">Source Code</a></h4>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h2>Episode</h2>
-                            </div>
-                            <div class="timeline-body"><p class="text-muted">
-                                이미지 대회가 종료된 후 실제로 서비스화하고자 하는 세 명의 팀원이 모였습니다.👨‍👨‍👦‍👦<br>
-                                학습 데이터에선 못봤던 예상치 못한 에러들과 모델을 서버에서 돌리기 위한 경량화, <br>
-                                Flask를 통한 웹서비스화 등 대회를 진행할 때는 배울 수 없었던 것을 배운 소중한 경험이 되었습니다.✍🏻<br>
-                                협업 툴로는 Asana와 Github을 사용하였습니다.<br>
-                                사용해보시고 불편하신 점 있으면 언제든 issue 보내주시면 감사하겠습니다.🙇‍♂️
-                            </p></div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
+    
 
     <script type="text/javascript" charset="utf-8">
-      
         var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
         socket.on('connect', function(){
             console.log("Connected...!", socket.connected)
         });
-
 
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
@@ -180,7 +164,6 @@
         video.width = 300;
         video.height = 300; 
     
-
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
@@ -205,9 +188,7 @@
         socket.on('response_back', function(image){
                 photo.setAttribute('src', image );      
         });
-
+    
     </script>
-
- </body>
-
+</body>
 </html>
