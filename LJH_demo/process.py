@@ -10,7 +10,7 @@ from engineio.payload import Payload
 
 Payload.max_decode_packets = 2048
 cropper = facecrop()
-net=cv2.dnn.readNet("Model.onnx")
+net=cv2.dnn.readNet("model.onnx")
 
 
 app = Flask(__name__)
