@@ -78,7 +78,7 @@
                 <canvas id="canvas"  width="300" height="300"></canvas>
             </div>
             <div style="width:300px; height:300px; border:1px solid green; float:left;">
-                <img id="photo"  width="300"  height="300", style="display:block; margin: 0 auto;">
+                <img id="photo"  src = "https://c.tenor.com/iCf2IgJfq7IAAAAC/waiting-im.gif" width="300"  height="300", style="display:block; margin: 0 auto;">
                 
             </div>
             <a><br><br><br><br><br><br><br><br><br><br><br><br><br></a>
@@ -173,7 +173,10 @@
         video.height = 300; 
     
         if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
+            navigator.mediaDevices.getUserMedia({ 
+                video: {
+                    width: { min: 300, ideal: 300, max: 300 },
+                    height: { min: 300, ideal: 300, max: 300 }}})
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
@@ -190,6 +193,7 @@
             var data = canvas.toDataURL('image/jpeg', 0.5);
             context.clearRect(0, 0, width,height );
             socket.emit('image', data);
+            photo.setAttribute('src', 'https://flevix.com/wp-content/uploads/2019/07/Loading-Image-1-1.gif');
         });
 
         // const FPS =5;
