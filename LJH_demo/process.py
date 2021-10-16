@@ -51,18 +51,19 @@ def normalize(blob, mean = 0.5, std = 0.2):
 def image(data_image):
     #not implementing stablizer
     frame = (readb64(data_image))   #get image from user webcam
-    face = cropper.cropface(frame)  #crop face from frame -> face: numpy image(HWC) 0~255
+    # face = cropper.cropface(frame)  #crop face from frame -> face: numpy image(HWC) 0~255
 
-    if isinstance(face, str):
-        text = face #if low confidence: NO Face 
-    else:
-        blob = cv2.dnn.blobFromImage(face, swapRB=False, crop=False, size = (384, 512))
-        blob = normalize(blob)  #normalize image
+    # if isinstance(face, str):
+    #     text = face #if low confidence: NO Face 
+    # else:
+    #     blob = cv2.dnn.blobFromImage(face, swapRB=False, crop=False, size = (384, 512))
+    #     blob = normalize(blob)  #normalize image
 
-        net.setInput(blob)
-        label = np.array(net.forward()) #foward blob
-        text  =  'Label: '+str(np.argmax(label[0]))
+    #     net.setInput(blob)
+    #     label = np.array(net.forward()) #foward blob
+    #     text  =  'Label: '+str(np.argmax(label[0]))
     
+    text = 'no DL'
     frame = ps.putBText(frame,text,text_offset_x=20,text_offset_y=30,vspace=20,hspace=10, font_scale=1.0, background_RGB=(10,20,222),text_RGB=(255,255,255))    #write label to image
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY,40])[1]
 
