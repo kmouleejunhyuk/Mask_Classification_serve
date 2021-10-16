@@ -67,11 +67,29 @@
 </head>
 
 <body bgcolor="lightblue">
+    
+
     <div class = 'video'>
         <h1 style="color:black;font-size:40px;" align="center"> What is your mask status? </h1>
-        <img id="photo"  width="800"  height="600", style="display:block; margin: 0 auto;">
+        <div>
+            <div id="container" style="width:300px; height:300px; border:1px solid red; float:left;margin-right:10px; margin-left:38%;">
+                <!-- <video autoplay playsinline id="videoElement", style="visibility: hidden;"></video> -->
+                <video autoplay playsinline id="videoElement"></video>
+                <canvas id="canvas"  width="300" height="300"></canvas>
+            </div>
+            <div style="width:300px; height:300px; border:1px solid green; float:left;">
+                <img id="photo"  width="300"  height="300", style="display:block; margin: 0 auto;">
+                
+            </div>
+            <a><br><br><br><br><br><br><br><br><br><br><br><br><br></a>
+        </div>
+
+        <!-- <img id="photo"  width="300"  height="300", style="display:block; margin: 0 auto;"> -->
+        
     </div>
-    
+
+    <button class="btn", id="captureBT">capture!</a></button>
+
     <div class="timeline-panel">
         <div class="timeline-heading">
             <h1 style="color:black;font-size:40px;"><br>Project summary</h1>
@@ -136,22 +154,12 @@
             </td>
         </tr>
     </table>
-
-    <table>
-        <tr>
-            <td>
-                <div id="container">
-                    <video autoplay playsinline id="videoElement", style="visibility: hidden;"></video>
-                </div>
-            </td>
-            <td>
-                <canvas id="canvas"  width="300" height="300" ></canvas>
-            </td>
-        </tr>
-    </table>
+    <a><br><br><br><br><br></a>
+    
     
 
     <script type="text/javascript" charset="utf-8">
+
         var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
         socket.on('connect', function(){
             console.log("Connected...!", socket.connected)
@@ -175,15 +183,24 @@
             });
         }
 
-        const FPS =5;
-        setInterval(() => {
+        document.getElementById("captureBT").addEventListener("click", function(){
             width=video.width;
             height=video.height;
             context.drawImage(video, 0, 0, width , height);
             var data = canvas.toDataURL('image/jpeg', 0.5);
             context.clearRect(0, 0, width,height );
             socket.emit('image', data);
-        }, 1000/FPS);
+        });
+
+        // const FPS =5;
+        // setInterval(() => {
+        //     width=video.width;
+        //     height=video.height;
+        //     context.drawImage(video, 0, 0, width , height);
+        //     var data = canvas.toDataURL('image/jpeg', 0.5);
+        //     context.clearRect(0, 0, width,height );
+        //     socket.emit('image', data);
+        // }, 1000/FPS);
 
         socket.on('response_back', function(image){
                 photo.setAttribute('src', image );      
