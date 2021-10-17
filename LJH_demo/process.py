@@ -51,7 +51,8 @@ def normalize(blob, mean = 0.5, std = 0.2):
 def image(data_image):
     #not implementing stablizer
     frame = (readb64(data_image))   #get image from user webcam
-    face = cropper.cropface(frame)  #crop face from frame -> face: numpy image(HWC) 0~255
+    # face = cropper.cropface(frame)  #crop face from frame -> face: numpy image(HWC) 0~255
+    face = frame
 
     if isinstance(face, str):
         text = face #if low confidence: NO Face 
