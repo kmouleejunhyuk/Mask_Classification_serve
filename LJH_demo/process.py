@@ -3,13 +3,13 @@ import base64,cv2
 import numpy as np
 import pyshine as ps
 from PIL import Image
-from cam import facecrop
+# from cam import facecrop
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from engineio.payload import Payload
 
 Payload.max_decode_packets = 2048
-cropper = facecrop()
+# cropper = facecrop()
 net=cv2.dnn.readNet("Model.onnx")
 
 
