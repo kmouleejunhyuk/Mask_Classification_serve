@@ -16,8 +16,12 @@
 
 ## 사용방법
 ![32](https://user-images.githubusercontent.com/49234207/138724656-beb67505-76c9-4bb6-85cf-f258c7cba173.png)
+  
 
-
+## 프로세스 flow
+![process](https://user-images.githubusercontent.com/49234207/138725376-95a17c4e-d0d0-426e-bab0-fe7ce502f3ac.png)
+  
+  
 ## 📅History
 
 |    Date    | Contributor | Descrption                                                   |
