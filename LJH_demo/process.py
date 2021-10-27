@@ -10,7 +10,7 @@ from engineio.payload import Payload
 
 Payload.max_decode_packets = 2048
 # cropper = facecrop()
-net=cv2.dnn.readNet("Model.onnx")
+net=cv2.dnn.readNet("model.onnx")
 
 
 app = Flask(__name__)
@@ -77,4 +77,5 @@ def image(data_image):
 
 if __name__ == '__main__':
     import flask_cors; flask_cors.CORS(app, resources={r"/*":{"origins":"*"}})
-    socketio.run(app, port=8000 ,debug=True)
+    # socketio.run(app, port=8000, host='0.0.0.0',debug=True, keyfile='kets/tmp_server.key', certfile='kets/tmp_server.crt')
+    socketio.run(app, port=8000, host='0.0.0.0',debug=True)
