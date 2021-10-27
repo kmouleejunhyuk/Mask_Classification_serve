@@ -9,6 +9,12 @@ from typing import Tuple
 import torch
 import os
 
+'''
+class for testing & changing model weight files(.pth)
+
+usage example
+serve = modelserve(prefered args)
+'''
 class modelserve():
     def __init__(self, quantize: str = 'normal', model_dir: str = r'./model.pickle', imagesize: Tuple=(1, 3, 512, 384)):
         self.modeldir = model_dir
@@ -23,7 +29,7 @@ class modelserve():
         return image.unsqueeze(0)
 
 
-    def to_tf(self, model):
+    def to_ONNX(self, model):
         model.eval()
         x = torch.randn(1, 3, 512, 384, requires_grad=True)
 
@@ -81,5 +87,3 @@ class modelserve():
 
 
 
-#testcode
-serve = modelserve()

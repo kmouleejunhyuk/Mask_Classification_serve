@@ -1,6 +1,21 @@
 import cv2
 import cvlib as cv
 
+'''
+warning: not implemented. use at your own risk
+additional requirements: cvlib, tensorflow
+
+usage example
+...main.py...
+from cam import facecrop
+cropper = facecrop()
+
+def image(data_image):
+    frame = (readb64(data_image))   #get image from user webcam
+    face = cropper.cropface(frame)
+    #face = frame
+'''
+
 class facecrop():   #jung hun
     def __init__(self) -> None:
         self.PADDING = 100

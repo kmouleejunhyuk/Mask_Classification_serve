@@ -3,13 +3,11 @@ import base64,cv2
 import numpy as np
 import pyshine as ps
 from PIL import Image
-# from cam import facecrop
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from engineio.payload import Payload
 
 Payload.max_decode_packets = 2048
-# cropper = facecrop()
 net=cv2.dnn.readNet("model.onnx")
 
 
@@ -49,9 +47,7 @@ def normalize(blob, mean = 0.5, std = 0.2):
 
 @socketio.on('image')
 def image(data_image):
-    #not implementing stablizer
     frame = (readb64(data_image))   #get image from user webcam
-    # face = cropper.cropface(frame)  #crop face from frame -> face: numpy image(HWC) 0~255
     face = frame
 
     if isinstance(face, str):
@@ -77,5 +73,4 @@ def image(data_image):
 
 if __name__ == '__main__':
     import flask_cors; flask_cors.CORS(app, resources={r"/*":{"origins":"*"}})
-    # socketio.run(app, port=8000, host='0.0.0.0',debug=True, keyfile='kets/tmp_server.key', certfile='kets/tmp_server.crt')
     socketio.run(app, port=8000, host='0.0.0.0',debug=True)
