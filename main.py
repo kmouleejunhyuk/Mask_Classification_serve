@@ -9,11 +9,7 @@ from flask_socketio import SocketIO, emit
 from engineio.payload import Payload
 
 Payload.max_decode_packets = 2048
-<<<<<<< HEAD
-cropper = facecrop()
-=======
 # cropper = facecrop()
->>>>>>> no_cvlib
 net=cv2.dnn.readNet("model.onnx")
 
 

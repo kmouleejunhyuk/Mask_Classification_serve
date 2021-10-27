@@ -26,14 +26,16 @@
 ```text
 Mask_Status_Classification
 ├── README.md
-├── cam.py
+├── future
+│   └── cam.py          # use local cam
+├── main.py             # execute main
 ├── model.onnx
 ├── model.pickle
-├── modelserve.py
-├── process.py
 ├── requirements.txt
-└── templates
-    └── index.html
+├── templates
+│   └── index.html
+└── utils
+    └── modelserve.py   # quantize model
 ```
 
 ### Install Requirements
@@ -44,5 +46,5 @@ $ pip install -r requirements.txt
 ### Run server
 
 ```
-$ python process.py
+$ python main.py
 ```
