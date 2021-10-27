@@ -1,6 +1,6 @@
 # 🌟Mask Status Classification Service
 
-2021.09.04 ~
+2021.09.04 ~ 2021.10.27
 
 ## 📑Summary
 
@@ -21,35 +21,19 @@
 ## 프로세스 flow
 ![process](https://user-images.githubusercontent.com/49234207/138725376-95a17c4e-d0d0-426e-bab0-fe7ce502f3ac.png)
   
-  
-## 📅History
-
-|    Date    | Contributor | Descrption                                                   |
-| :--------: | :---------: | :----------------------------------------------------------- |
-| 2021.09.04 |    모두     | 팀 결성, 역할 분담, Organization 생성, Github과 Asana를 기반으로 협업 |
-| 2021.09.06 |   허정훈    | cam.py - 로컬 캠에서 얼굴 인식 및 label 반환<br />requirements.txt update |
-|            |             |                                                              |
 
 ### File Structure
 ```text
 Mask_Status_Classification
 ├── README.md
-├── __pycache__
-│   └── cam.cpython-37.pyc
-├── backend
-│   ├── backend
-│   ├── db.sqlite3
-│   ├── manage.py
-│   ├── predict
-│   └── webcam_test
 ├── cam.py
-├── feedback.py
-├── main.py
-├── model_mnist1.pickle
+├── model.onnx
+├── model.pickle
 ├── modelserve.py
+├── process.py
 ├── requirements.txt
-├── test.jpeg
-├── test.py
+└── templates
+    └── index.html
 ```
 
 ### Install Requirements
@@ -57,8 +41,8 @@ Mask_Status_Classification
 $ pip install -r requirements.txt
 ```
 
-### run server
+### Run server
 
 ```
-$ python manage.py runserver
+$ python process.py
 ```
