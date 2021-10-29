@@ -20,7 +20,7 @@
 
 ## 프로세스 flow
 ![process](https://user-images.githubusercontent.com/49234207/138725376-95a17c4e-d0d0-426e-bab0-fe7ce502f3ac.png)
-  
+*cropface 클래스는 성능 이슈로 활용되지 않습니다.
 
 ### File Structure
 ```text
