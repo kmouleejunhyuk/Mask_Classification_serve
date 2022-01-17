@@ -20,7 +20,7 @@
 
 ## 프로세스 flow
 ![process](https://user-images.githubusercontent.com/49234207/138725376-95a17c4e-d0d0-426e-bab0-fe7ce502f3ac.png)
-  
+*update(20211102): 링크에서는 이제 cropface 클래스를 사용해 얼굴이 없을 경우 NO Face 라벨을 출력합니다
 
 ### File Structure
 ```text
